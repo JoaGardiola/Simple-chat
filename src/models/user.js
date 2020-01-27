@@ -26,7 +26,7 @@ export default (sequelize, DataTypes) => {
     },
     salt: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: false
     }
   }, {
     freezeTableName: true
@@ -54,7 +54,7 @@ export default (sequelize, DataTypes) => {
   }
 
   // hooks
-  User.beforeCreate(User.hashPasswordHook.bind(User))
+  User.beforeValidate(User.hashPasswordHook.bind(User))
   User.beforeUpdate(User.hashPasswordHook.bind(User))
 
   return User
