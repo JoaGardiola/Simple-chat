@@ -1,17 +1,9 @@
 import models from '../models'
 
-export const findUsers = () => {
-  return models.user.findAll()
-}
+export const findUsers = () => models.user.findAll()
 
-export const findUserById = (id) => {
-  return models.user.findByPk(id)
-}
+export const findUserById = (_, { id }) => models.user.findByPk(id)
 
-export const createUser = ({ input }) => {
-  return models.user.create(input)
-}
+export const createUser = (_, { input }) => models.user.create(input)
 
-export const deleteUser = (args) => {
-  return models.user.destroy({ where: args })
-}
+export const deleteUser = (_, id) => models.user.destroy({ where: id })

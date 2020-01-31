@@ -2,11 +2,11 @@ import * as user from '../../controllers/user-controller.js'
 
 export default {
   Query: {
-    users: (parent, args) => user.findUsers(),
-    user: (parent, { id }) => user.findUserById(id)
+    users: user.findUsers,
+    user: user.findUserById
   },
   Mutation: {
-    createUser: (parent, args) => user.createUser(args),
-    deleteUser: (parent, id) => user.deleteUser(id)
+    createUser: user.createUser,
+    deleteUser: user.deleteUser
   }
 }
