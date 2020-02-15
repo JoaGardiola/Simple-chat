@@ -5,6 +5,11 @@ type User {
   username: String!
 }
 
+type AuthenticationResult {
+  user: User
+  jwt: String
+}
+
 extend type Query{
   users: [User!]!
   user(id: ID!): User
@@ -20,4 +25,7 @@ input UserInput {
 extend type Mutation{
   createUser(input: UserInput): User!
   deleteUser(id:ID!): Int! 
+  signUp(input: UserInput!): AuthenticationResult!
 }
+
+
