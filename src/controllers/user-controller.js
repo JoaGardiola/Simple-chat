@@ -17,7 +17,7 @@ export const signUp = async (_, { input: user }) => {
   try {
     const newUser = await models.user.create(user)
     const newToken = jwt.sign({ subject: newUser.id, username: newUser.username }, 'secret', { expiresIn: '10d' })
-    
+
     return {
       user: newUser,
       jwt: newToken
@@ -27,8 +27,8 @@ export const signUp = async (_, { input: user }) => {
   }
 }
 
-export const signIn = async (_, {input:{username,password}} ) => {
-  const user = await getUserByUsername(_, {username})
+export const signIn = async (_, { input: { username, password } }) => {
+  const user = await getUserByUsername(_, { username })
   if (!user) {
     throw new Error('No such user found')
   }
@@ -42,7 +42,6 @@ export const signIn = async (_, {input:{username,password}} ) => {
 
   return {
     user,
-    jwt:token
+    jwt: token
   }
-
 }
