@@ -27,5 +27,3 @@ extend type Mutation{
   deleteUser(id:ID!): Int! 
   signUp(input: UserInput!): AuthenticationResult!
 }
-
-

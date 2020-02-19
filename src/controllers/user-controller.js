@@ -13,6 +13,7 @@ export const signUp = async (_, { input: user }, { secret }) => {
   try {
     const newUser = await models.user.create(user)
     const newToken = jwt.sign({ subject: newUser.id, username: newUser.username }, 'secret', { expiresIn: '10d' })
+    
     return {
       user: newUser,
       jwt: newToken
