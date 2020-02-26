@@ -16,7 +16,7 @@ export const getUserByUsername = (_, { username }) => {
 export const signUp = async (_, { input: user }) => {
   try {
     const newUser = await models.user.create(user)
-    const newToken = jwt.sign({ subject: newUser.id, username: newUser.username }, 'secret', { expiresIn: '10d' })
+    const newToken = jwt.sign({ sub: newUser.id, username: newUser.username }, 'secret', { expiresIn: '10d' })
 
     return {
       user: newUser,
@@ -38,7 +38,7 @@ export const signIn = async (_, { input: { username, password } }) => {
     throw new Error('Invalid password')
   }
 
-  const token = jwt.sign({ subject: user.id, username: user.username }, 'secret', { expiresIn: '10d' })
+  const token = jwt.sign({ sub: user.id, username: user.username }, 'secret', { expiresIn: '10d' })
 
   return {
     user,
