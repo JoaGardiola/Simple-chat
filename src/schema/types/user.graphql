@@ -10,6 +10,11 @@ type AuthenticationResult {
   jwt: String
 }
 
+input signInInput {
+  username: String!
+  password: String!
+}
+
 extend type Query{
   users: [User!]!
   user(id: ID!): User
@@ -25,5 +30,7 @@ input UserInput {
 extend type Mutation{
   createUser(input: UserInput): User!
   deleteUser(id:ID!): Int! 
+  getUserByUsername(username: String!): User!
   signUp(input: UserInput!): AuthenticationResult!
+  signIn(input: signInInput!): AuthenticationResult!
 }
