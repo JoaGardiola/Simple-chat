@@ -4,32 +4,26 @@ import { createServer } from 'http'
 
 import passport from 'passport'
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt'
+import jwt from 'jsonwebtoken'
 
 import schema from './schema'
+import models from './models'
 
 require('dotenv').config()
 
 const port = process.env.PORT || 3001
 
-const opts = {}
+const params = {
+  secretOrKey: 'secret',
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
+}
 
-opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken()
-opts.secretOrKey = 'secret'
+const strategy = new JwtStrategy(params, async (payload, done) => {
+  const user = await models.user.findOne({ where: { id: payload.sub } })
+  return done(null, user)
+})
 
-passport.use(new JwtStrategy(opts, function (jwt_payload, done) {
-  User.findOne({ id: jwt_payload.sub }, function (err, user) {
-    if (err) {
-      return done(err, false)
-    }
-    if (user) {
-      return done(null, user)
-    } else {
-      return done(null, false)
-    }
-  })
-}))
-
-passport.use(JwtStrategy)
+passport.use(strategy)
 
 const app = express()
 
