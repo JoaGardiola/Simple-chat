@@ -19,8 +19,12 @@ const params = {
 }
 
 const strategy = new JwtStrategy(params, async (payload, done) => {
-  const user = await models.user.findOne({ where: { id: payload.sub } })
-  return done(null, user)
+  try {
+    const user = await models.user.findOne({ where: { id: payload.sub } })
+    done(null, user)
+  } catch (err) {
+    done(err)
+  }
 })
 
 passport.use(strategy)
