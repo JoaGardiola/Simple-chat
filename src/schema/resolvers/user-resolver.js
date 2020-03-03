@@ -3,7 +3,9 @@ import * as user from '../../controllers/user-controller.js'
 export default {
   Query: {
     users: user.findUsers,
-    user: user.findUserById
+    user: user.findUserById,
+    currentUser: user.getCurrentUser
+
   },
   Mutation: {
     createUser: user.createUser,
