@@ -3,7 +3,7 @@
     "username": "postgres",
     "password": "felipe",
     "database": "chat_development",
-    "host": "localhost",
+    "host": "db",
     "dialect": "postgres"
   },
   "test": {
