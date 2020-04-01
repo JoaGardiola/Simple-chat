@@ -1,0 +1,36 @@
+version: "3.7"
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: felipe
+      POSTGRES_USER: postgres
+      POSTGRES_DB: chat_development
+    ports:
+      - "3000:5432"
+  backend-chat:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - db
+    environment:
+      - NODE_ENV=development
+    ports:
+      - "3001:3001"
+    command: npm run dev
+  frontend-chat:
+    build: 
+      context: ../chat-app
+      dockerfile: Dockerfile
+    volumes:
+      - ../chat-app:/usr/src/app
+    depends_on:
+      - backend-chat
+    ports:
+      - "3002:3000"
+    command: npm start
+
+
